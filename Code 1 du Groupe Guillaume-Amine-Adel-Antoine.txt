@@ -1,0 +1,28 @@
+ import numpy as np
+ from math import *
+ from matplotlib import pyplot as plt
+ from matplotlib import animation
+ ax = plt.axes(xlim=(0, 20), ylim=(0, 20))
+ ax.set_title("Rotation", va='bottom') # Création du repère
+ def cercle1(Rayon): # Programme definissant l'orbite du point que l'on veut assimiler a une planète
+ cercle1 = plt.Circle((10, 10), Rayon, fc='white')
+ return plt.gca().add_patch(cercle1)
+ cercle1(3)
+ fig=plt.figure()
+ fig.set_dpi(100)
+ fig.set_size_inches(7, 6.5)
+ circle = plt.Circle((0, 0), 0.2, fc='pink')
+ x_centre_point_initial=10
+ y_centre_point_initial=10
+ def init(): # Programme d'Initialisation de l'animation
+ circle.center=(x_centre_point_initial, y_centre_point_initial)
+ ax.add_patch(circle)
+ return circle,
+ def animate(i): #Programme permettant l'animation
+ x, y= circle.center
+ x= x_centre_point_initial+cos(radians(i))*3 # Le coefficient 3 doit être le même que le Rayon
+ y = y_centre_point_initial+sin(radians(i))*3# Le coefficient 3 doit être le même que le Rayon
+ circle.center=(x, y)
+ return circle,
+ ani = animation.FuncAnimation(fig, animate, init_func=init,interval=20, blit=True)
+ plt.show() 
